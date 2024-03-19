@@ -1,0 +1,12 @@
+services:
+    mysql-book-api:
+        image: mysql:latest
+        environment:
+            - MYSQL_ROOT_PASSWORD=my-secret-pw
+            - MYSQL_DATABASE=book_management
+        ports:
+            - '3306:3306'
+        volumes:
+            - book-db:/var/lib/mysql
+volumes:
+    book-db:
