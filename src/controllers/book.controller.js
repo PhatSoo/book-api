@@ -3,11 +3,10 @@ const { OkResponse } = require('../middlewares/success.response');
 
 class BookController {
     listAllBooks = async (req, res, next) => {
-        // new OkResponse({
-        //     message: 'List all book success!!',
-        //     metatdata: null,
-        // }).send(res);
-        throw new NotFoundError('error roi');
+        new OkResponse({
+            message: 'List all book success!!',
+            metadata: null,
+        }).send(res);
     };
 }
 

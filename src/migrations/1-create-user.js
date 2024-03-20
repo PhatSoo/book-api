@@ -10,6 +10,10 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
+            email: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
             username: {
                 type: Sequelize.STRING,
             },
@@ -18,6 +22,7 @@ module.exports = {
             },
             role: {
                 type: Sequelize.ENUM('USER', 'ADMIN', 'AUTHOR'),
+                defaultValue: ['USER'],
             },
             createdAt: {
                 allowNull: false,

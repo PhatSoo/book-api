@@ -1,23 +1,25 @@
 'use strict';
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('Books', {
+        await queryInterface.createTable('Access_Keys', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            title: {
-                type: Sequelize.STRING,
+            userId: {
+                type: Sequelize.INTEGER,
+                references: {
+                    model: 'Users',
+                    key: 'id',
+                },
             },
-            author: {
-                type: Sequelize.STRING,
-            },
-            publishedDate: {
-                type: Sequelize.DATE,
-            },
+            privateKey: Sequelize.TEXT,
+            publicKey: Sequelize.TEXT,
+            refreshToken: Sequelize.TEXT,
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE,
@@ -29,6 +31,6 @@ module.exports = {
         });
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('Books');
+        await queryInterface.dropTable('Access_Keys');
     },
 };

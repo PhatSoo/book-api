@@ -1,5 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
+// const user = require('./user');
 module.exports = (sequelize, DataTypes) => {
     class Book extends Model {
         /**
@@ -9,14 +10,21 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            this.belongsTo(models.User);
         }
     }
     Book.init(
         {
-            id: DataTypes.INTEGER,
+            id: {
+                type: DataTypes.INTEGER,
+                primaryKey: true,
+                autoIncrement: true,
+            },
             title: DataTypes.STRING,
-            author: DataTypes.STRING,
+            authorId: DataTypes.STRING,
             publishedDate: DataTypes.DATE,
+            isDraft: DataTypes.BOOLEAN,
+            isPublished: DataTypes.BOOLEAN,
         },
         {
             sequelize,

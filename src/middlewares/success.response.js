@@ -1,11 +1,11 @@
 const { StatusCode, StatusReason } = require('../utils');
 
 class SuccessResponse {
-    constructor({ message, statusCode, statusReason, metatdata }) {
+    constructor({ message, statusCode, statusReason, metadata }) {
         this.message = !message ? statusReason : message;
         console.log(statusCode);
         this.status = statusCode;
-        this.metatdata = metatdata;
+        this.metadata = metadata;
     }
 
     send(res) {
@@ -16,22 +16,22 @@ class SuccessResponse {
 class OkResponse extends SuccessResponse {
     constructor({
         message,
-        metatdata,
+        metadata,
         statusCode = StatusCode.OK,
         statusReason = StatusReason.OK,
     }) {
-        super({ message, metatdata, statusCode, statusReason });
+        super({ message, metadata, statusCode, statusReason });
     }
 }
 
 class CreatedResponse extends SuccessResponse {
     constructor({
         message,
-        metatdata,
+        metadata,
         statusCode = StatusCode.CREATED,
         statusReason = StatusReason.CREATED,
     }) {
-        super({ message, metatdata, statusCode, statusReason });
+        super({ message, metadata, statusCode, statusReason });
     }
 }
 

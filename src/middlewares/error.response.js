@@ -7,6 +7,24 @@ class ResponseError extends Error {
     }
 }
 
+class BadRequestError extends ResponseError {
+    constructor(
+        message = StatusReason.BAD_REQUEST,
+        statusCode = StatusCode.BAD_REQUEST
+    ) {
+        super(message, statusCode);
+    }
+}
+
+class UnAuthorizedError extends ResponseError {
+    constructor(
+        message = StatusReason.UNAUTHORIZED,
+        statusCode = StatusCode.UNAUTHORIZED
+    ) {
+        super(message, statusCode);
+    }
+}
+
 class NotFoundError extends ResponseError {
     constructor(
         message = StatusReason.NOT_FOUND,
@@ -18,4 +36,6 @@ class NotFoundError extends ResponseError {
 
 module.exports = {
     NotFoundError,
+    UnAuthorizedError,
+    BadRequestError,
 };
