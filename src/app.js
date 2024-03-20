@@ -17,8 +17,8 @@ app.use(
     })
 );
 
-// connect db
-require('./configs/config.mysql');
+// test connect db
+require('./config/config.mysql');
 
 // route
 app.use('/api/v1', require('./route'));
