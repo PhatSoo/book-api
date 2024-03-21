@@ -1,6 +1,6 @@
 const HEADERS = {
     AUTHORIZATION: 'authorization',
-    CLIENT_ID: 'x-client-id',
+    RF_TOKEN: 'x-rf-token',
 };
 
 module.exports = {

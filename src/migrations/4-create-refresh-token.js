@@ -10,14 +10,14 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            keyId: {
+            userId: {
                 type: Sequelize.INTEGER,
                 references: {
-                    model: 'Access_Keys',
+                    model: 'Users',
                     key: 'id',
                 },
             },
-            refreshToken: Sequelize.TEXT,
+            refreshTokenUsed: Sequelize.TEXT,
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE,

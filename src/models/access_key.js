@@ -21,9 +21,7 @@ module.exports = (sequelize, DataTypes) => {
                 autoIncrement: true,
             },
             userId: DataTypes.STRING,
-            privateKey: DataTypes.TEXT,
             publicKey: DataTypes.TEXT,
-            refreshToken: DataTypes.TEXT,
         },
         {
             sequelize,

@@ -3,7 +3,6 @@ const { StatusCode, StatusReason } = require('../utils');
 class SuccessResponse {
     constructor({ message, statusCode, statusReason, metadata }) {
         this.message = !message ? statusReason : message;
-        console.log(statusCode);
         this.status = statusCode;
         this.metadata = metadata;
     }

@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            this.belongsTo(models.Access_Key);
+            this.belongsTo(models.User);
         }
     }
     Refresh_Token.init(
@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
                 autoIncrement: true,
             },
-            keyId: DataTypes.INTEGER,
-            refreshToken: DataTypes.TEXT,
+            userId: DataTypes.INTEGER,
+            refreshTokenUsed: DataTypes.TEXT,
         },
         {
             sequelize,

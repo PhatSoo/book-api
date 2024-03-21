@@ -15,7 +15,15 @@ class AccessController {
             message: 'Logout successfully!',
             metadata: await AccessService.logout({
                 accessToken: req.headers[HEADERS.AUTHORIZATION],
-                userId: req.headers[HEADERS.CLIENT_ID],
+            }),
+        }).send(res);
+    };
+
+    static refreshToken = async (req, res, next) => {
+        new OkResponse({
+            message: 'Refresh Token successfully!',
+            metadata: await AccessService.refreshToken({
+                refreshToken: req.headers[HEADERS.RF_TOKEN],
             }),
         }).send(res);
     };

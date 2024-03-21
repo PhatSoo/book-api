@@ -1,9 +1,11 @@
 const crypto = require('node:crypto');
 const JWT = require('jsonwebtoken');
 
-const { Access_Key } = require('../models');
 const { BadRequestError } = require('../middlewares/error.response');
-const { findKeyByUserId } = require('../models/repositories/access_key.repo');
+const {
+    findKeyByUserId,
+    findOneAndUpdate,
+} = require('../models/repositories/access_key.repo');
 
 const generateKeyPair = () => {
     return crypto.generateKeyPairSync('rsa', {
@@ -19,53 +21,54 @@ const generateKeyPair = () => {
     });
 };
 
-const createTokenPair = async (payload, userId, privateKey, publicKey) => {
-    const accessToken = await JWT.sign(payload, privateKey, {
-        algorithm: 'RS256',
-        expiresIn: '1h',
+const createTokenPair = async (payload) => {
+    const { userId } = payload;
+    // Generate publicKey and privateKey
+    const { publicKey, privateKey } = generateKeyPair();
+
+    const accessToken = JWT.sign(payload, privateKey, {
+        algorithm: 'PS256',
+        expiresIn: '1m',
     });
-    const refreshToken = await JWT.sign(payload, privateKey, {
-        algorithm: 'RS256',
+    const refreshToken = JWT.sign(payload, privateKey, {
+        algorithm: 'PS256',
         expiresIn: '7d',
     });
 
     // check User has login ??
-    const createKey = Access_Key.findOne({
-        where: { userId },
-    }).then(async (key) => {
-        if (key) {
-            // if Yes => update
-            return await key.update({ refreshToken, privateKey, publicKey });
-        }
+    const createOrUpdateKey = await findOneAndUpdate({ userId, publicKey });
 
-        // if No => create new
-        return await Access_Key.create({
-            userId: userId,
-            refreshToken,
-            privateKey,
-            publicKey,
-        });
-    });
+    if (!createOrUpdateKey)
+        throw new BadRequestError('Something went wrong! Re-login');
 
-    if (!createKey) throw new BadRequestError('Something went wrong! Re-login');
-
-    return { userId, accessToken };
+    return { accessToken, refreshToken };
 };
 
-const decodeToken = async ({ accessToken, userId }) => {
-    const foundKey = await findKeyByUserId(userId);
+const decodeToken = (token) => {
+    return JWT.decode(token);
+};
 
-    if (!foundKey) throw new BadRequestError('Key not found!');
+const verifyToken = async (token) => {
+    try {
+        const { userId } = decodeToken(token);
+        const foundKey = await findKeyByUserId(userId);
 
-    const decoded = await JWT.decode(accessToken, foundKey.publicKey);
+        if (!foundKey) throw new BadRequestError('Key not found!');
 
-    if (!decoded) return false;
+        // catch error verified
+        const verified = JWT.verify(token, foundKey.publicKey, {
+            algorithms: 'PS256',
+        });
 
-    return true;
+        return verified;
+    } catch (error) {
+        // catch error verified
+        return null;
+    }
 };
 
 module.exports = {
-    generateKeyPair,
     createTokenPair,
+    verifyToken,
     decodeToken,
 };

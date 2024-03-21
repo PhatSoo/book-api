@@ -17,9 +17,7 @@ module.exports = {
                     key: 'id',
                 },
             },
-            privateKey: Sequelize.TEXT,
             publicKey: Sequelize.TEXT,
-            refreshToken: Sequelize.TEXT,
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE,
