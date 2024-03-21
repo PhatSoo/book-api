@@ -59,9 +59,9 @@ class AccessService {
         return null;
     }
 
-    static async refreshToken({ refreshToken }) {
+    static async refreshToken({ userId, refreshToken }) {
         // check this refreshToken was being used in the pass
-        const checkUsed = await findRefreshTokenUsed(refreshToken);
+        const checkUsed = await findRefreshTokenUsed({ userId, refreshToken });
         if (checkUsed)
             throw new UnAuthorizedError('Token is invalid! Re-login!');
 
@@ -71,7 +71,7 @@ class AccessService {
         if (!checkToken)
             throw new BadRequestError('Refresh token is invalid!!');
 
-        const { userId, username, email, role } = checkToken;
+        const { username, email, role } = checkToken;
         const foundKey = await findKeyByUserId(userId);
 
         if (!foundKey)

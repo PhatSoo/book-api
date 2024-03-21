@@ -2,11 +2,8 @@ const {
     createRefreshTokenUsed,
     findRefreshTokenUsedByUserId,
 } = require('../models/repositories/refresh_token.repo');
-const { decodeToken } = require('./key.service');
 
-const findRefreshTokenUsed = async (refreshToken) => {
-    const { userId } = decodeToken(refreshToken);
-
+const findRefreshTokenUsed = async ({ userId, refreshToken }) => {
     const checkUsed = await findRefreshTokenUsedByUserId({
         userId,
         refreshToken,

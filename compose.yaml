@@ -8,5 +8,6 @@ services:
             - '3306:3306'
         volumes:
             - book-db:/var/lib/mysql
+        container_name: 'book-api'
 volumes:
     book-db:
