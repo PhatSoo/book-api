@@ -17,6 +17,9 @@ const {
 const {
     deleteRefreshTokenUsedyUserId,
 } = require('../models/repositories/refresh_token.repo');
+const { isValidEmail } = require('../utils');
+const { createNewUser } = require('./user.service');
+const { ROLES } = require('../constants');
 
 class AccessService {
     static async login({ email, password }) {
@@ -41,6 +44,7 @@ class AccessService {
             role,
         });
 
+        // all pass => success
         return res; // { accessToken, refreshToken }
     }
 
@@ -56,6 +60,7 @@ class AccessService {
         // clear table store refreshTokenUsed of userId
         await deleteRefreshTokenUsedyUserId(checkToken.userId);
 
+        // all pass => success
         return null;
     }
 
@@ -93,7 +98,34 @@ class AccessService {
         if (!refreshUsedStore)
             throw new BadRequestError('Disable refresh token failed!');
 
+        // all pass => success
         return reGenerateToken; // { accessToken, refreshToken }
+    }
+
+    static async register({ email, username, password, role = 'USER' }) {
+        if (!email || !username || !password)
+            throw new BadRequestError('Missing requirement params!');
+
+        const checkValidEmail = isValidEmail(email);
+        if (!checkValidEmail) throw new BadRequestError('Email is not valid!');
+
+        if (!ROLES.includes(role))
+            throw new BadRequestError('Role is invalid!');
+
+        const createdUser = await createNewUser({
+            email,
+            username,
+            password: bcrypt.hashSync(password, 10),
+            role,
+        });
+
+        if (!createdUser)
+            throw new BadRequestError(
+                'Cannot create account! Please try again.'
+            );
+
+        // all pass => success
+        return null;
     }
 }
 

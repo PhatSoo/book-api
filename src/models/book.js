@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            this.belongsTo(models.User);
+            this.belongsTo(models.Author, { foreignKey: 'authorId' });
+            this.belongsTo(models.Genre, { foreignKey: 'genreId' });
         }
     }
     Book.init(
@@ -21,8 +22,8 @@ module.exports = (sequelize, DataTypes) => {
                 autoIncrement: true,
             },
             title: DataTypes.STRING,
-            authorId: DataTypes.STRING,
             publishedDate: DataTypes.DATE,
+            description: DataTypes.TEXT,
             isDraft: DataTypes.BOOLEAN,
             isPublished: DataTypes.BOOLEAN,
         },

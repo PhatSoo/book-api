@@ -7,8 +7,8 @@ const { permission, authentication } = require('../../auth');
 
 // router.use(permission('AUTHOR'));
 
+router.get('/author/:authorId', errorHandler(BookController.listBooksByAuthor)); // list all book of a specific author
+router.get('/:id', errorHandler(BookController.getBookDetails)); // get book detail
 router.get('/', errorHandler(BookController.listAllBooks));
-router.get('/:id', errorHandler(BookController.listAllBooks)); // get book detail
-router.get('/author/:userId', errorHandler(BookController.listAllBooks)); // list all book of a specific author
 
 module.exports = router;

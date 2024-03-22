@@ -4,7 +4,7 @@ const {
     ForbiddenError,
 } = require('../middlewares/error.response');
 const { verifyToken } = require('../services/key.service');
-const { HEADERS, ROLES } = require('../utils');
+const { HEADERS, ROLES } = require('../constants');
 
 const authentication = errorHandler(async (req, res, next) => {
     const accessToken = req.headers[HEADERS.AUTHORIZATION];

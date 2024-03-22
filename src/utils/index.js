@@ -1,13 +1,10 @@
-const HEADERS = {
-    AUTHORIZATION: 'authorization',
-    RF_TOKEN: 'x-rf-token',
+const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 };
 
-const ROLES = ['ADMIN', 'USER', 'AUTHOR'];
-
 module.exports = {
+    isValidEmail,
     StatusCode: require('./statusCodes'),
     StatusReason: require('./statusReasons'),
-    HEADERS,
-    ROLES,
 };

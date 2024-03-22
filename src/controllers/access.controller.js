@@ -1,6 +1,9 @@
-const { OkResponse } = require('../middlewares/success.response');
+const {
+    OkResponse,
+    CreatedResponse,
+} = require('../middlewares/success.response');
 const AccessService = require('../services/access.service');
-const { HEADERS } = require('../utils');
+const { HEADERS } = require('../constants');
 
 class AccessController {
     static login = async (req, res, next) => {
@@ -26,6 +29,13 @@ class AccessController {
             metadata: await AccessService.refreshToken({
                 refreshToken: req.headers[HEADERS.RF_TOKEN],
             }),
+        }).send(res);
+    };
+
+    static register = async (req, res, next) => {
+        new CreatedResponse({
+            message: 'Register successfully!',
+            metadata: await AccessService.register(req.body),
         }).send(res);
     };
 }

@@ -70,5 +70,4 @@ const verifyToken = async (token) => {
 module.exports = {
     createTokenPair,
     verifyToken,
-    decodeToken,
 };

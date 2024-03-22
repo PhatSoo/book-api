@@ -15,10 +15,22 @@ module.exports = {
             },
             authorId: {
                 type: Sequelize.INTEGER,
+                allowNull: false,
                 references: {
-                    model: 'Users',
+                    model: 'Authors',
                     key: 'id',
                 },
+            },
+            genreId: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                references: {
+                    model: 'Genres',
+                    key: 'id',
+                },
+            },
+            description: {
+                type: Sequelize.STRING,
             },
             publishedDate: {
                 type: Sequelize.DATE,

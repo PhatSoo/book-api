@@ -2,6 +2,7 @@ module.exports = {
     // Success Response Code
     OK: 200,
     CREATED: 201,
+    NO_CONTENT: 204,
 
     // Error Response Code
     BAD_REQUEST: 400,
