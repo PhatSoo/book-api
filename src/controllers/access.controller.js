@@ -27,6 +27,7 @@ class AccessController {
         new OkResponse({
             message: 'Refresh Token successfully!',
             metadata: await AccessService.refreshToken({
+                userId: req.user.userId,
                 refreshToken: req.headers[HEADERS.RF_TOKEN],
             }),
         }).send(res);

@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            this.belongsTo(models.User);
+            this.belongsTo(models.User, { foreignKey: 'userId' });
         }
     }
     Access_Key.init(
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
                 autoIncrement: true,
             },
-            userId: DataTypes.STRING,
+            userId: DataTypes.INTEGER,
             publicKey: DataTypes.TEXT,
         },
         {

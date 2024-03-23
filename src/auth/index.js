@@ -7,6 +7,22 @@ const { verifyToken } = require('../services/key.service');
 const { HEADERS, ROLES } = require('../constants');
 
 const authentication = errorHandler(async (req, res, next) => {
+    /* check /refresh-token request */
+    if (req.headers[HEADERS.RF_TOKEN]) {
+        const refreshToken = req.headers[HEADERS.RF_TOKEN];
+        const checkValid = await verifyToken(refreshToken);
+
+        if (!checkValid)
+            throw new UnAuthorizedError('Refresh token is invalid');
+
+        const { userId, username, email, role } = checkValid;
+
+        req.user = { userId, username, email };
+        req.role = role;
+
+        return next();
+    }
+
     const accessToken = req.headers[HEADERS.AUTHORIZATION];
 
     if (!accessToken) throw new UnAuthorizedError('Please login first!');

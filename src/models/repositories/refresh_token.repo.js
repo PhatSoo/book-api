@@ -1,6 +1,7 @@
 const { Refresh_Token } = require('../');
 
 const findRefreshTokenUsedByUserId = async ({ userId, refreshToken }) => {
+    console.log(userId);
     return await Refresh_Token.findOne({
         where: {
             userId,

@@ -24,6 +24,8 @@ module.exports = (sequelize, DataTypes) => {
             title: DataTypes.STRING,
             publishedDate: DataTypes.DATE,
             description: DataTypes.TEXT,
+            authorId: DataTypes.INTEGER,
+            genreId: DataTypes.INTEGER,
             isDraft: DataTypes.BOOLEAN,
             isPublished: DataTypes.BOOLEAN,
         },

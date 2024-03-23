@@ -31,15 +31,35 @@ const findBookByAuthorId = async ({ authorId, limit, offset }) => {
     });
 };
 
-const findBookById = async ({ id }) => {
+const findBookById = async (id) => {
     return await Book.findOne({
         where: { id },
         ...options,
     });
 };
 
+const findBookByTitle = async ({ title }) => {
+    return await Book.findAll({ where: { title } });
+};
+
+const createBook = async (payload) => {
+    return await Book.create(payload);
+};
+
+const updateBook = async (id, payload) => {
+    return await Book.update(payload, { where: { id } });
+};
+
+const destroyBook = async (id) => {
+    return await Book.destroy({ where: { id } });
+};
+
 module.exports = {
     find,
     findBookByAuthorId,
     findBookById,
+    findBookByTitle,
+    createBook,
+    updateBook,
+    destroyBook,
 };
