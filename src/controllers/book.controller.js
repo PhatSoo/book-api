@@ -46,7 +46,7 @@ class BookController {
     };
 
     deleteBook = async (req, res, next) => {
-        new CreatedResponse({
+        new OkResponse({
             message: 'Delete book successful!',
             metadata: await BookService.deleteBook(req.params),
         }).send(res);

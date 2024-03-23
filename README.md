@@ -4,6 +4,42 @@
 
 ## 1. Login route:
 
+-   Endpoint: `/register`
+-   Method: `POST`
+
+### Description: _Route for user login._
+
+-   ### Permissions: `No permission`
+
+-   ### Request body:
+    -   `email`: User email.
+    -   `password`: User password.
+
+> Request Body Example:
+
+```json
+{
+    "email": "user@example.com",
+    "password": "password123"
+}
+```
+
+-   ### Response:
+    > Upon successful authentication, the route returns the following JSON object:
+
+```json
+{
+    "message": "Regiser successfully!",
+    "status": 200,
+    "metadata": null
+}
+```
+
+-   ### Errors:
+    -   `400 Bad request`: If missing parameters or register failed.
+
+## 2. Login route:
+
 -   Endpoint: `/login`
 -   Method: `POST`
 
@@ -41,7 +77,7 @@
 -   ### Errors:
     -   `400 Bad request`: If missing parameters or login failed.
 
-## 2. Logout route:
+## 3. Logout route:
 
 -   Endpoint: `/logout`
 -   Method: `POST`
@@ -68,7 +104,7 @@
 -   ### Errors:
     -   `401 Unauthorized`: If the access token is missing or invalid.
 
-## 3. Refresh token route:
+## 4. Refresh token route:
 
 -   Endpoint: `/refresh-token`
 -   Method: `POST`
@@ -98,9 +134,9 @@
 -   ### Errors:
     -   `401 Unauthorized`: If the refresh token is missing or invalid.
 
-## 4. Books route: `/book`
+## 5. Books route: `/book`
 
--   ### 4.1. Endpoint: `/book`
+-   ### 5.1. Endpoint: `/book`
 
     -   Method: `GET`
     -   Permissions: `No permission`
@@ -133,7 +169,7 @@
 }
 ```
 
--   ### 4.2. Endpoint: `/book/:id`
+-   ### 5.2. Endpoint: `/book/:id`
 
     -   Method: `GET`
     -   Request params: `:id` book's id
@@ -157,10 +193,10 @@
 }
 ```
 
--   ### 4.3. Endpoint: `/book`
+-   ### 5.3. Endpoint: `/book`
 
     -   Method: `POST`
-    -   Permissions: `['ADMIN', 'AUTHOR']`
+    -   Permissions: `['ADMIN']`
     -   Description: _Create a new book_
     -   Request body: book's info
 
@@ -192,10 +228,10 @@
 }
 ```
 
--   ### 4.4. Endpoint: `/book/:id`
+-   ### 5.4. Endpoint: `/book/:id`
 
     -   Method: `PATCH`
-    -   Permissions: `['ADMIN', 'AUTHOR']`
+    -   Permissions: `['ADMIN']`
     -   Description: _Updade book's info_
     -   Request body: info that needed to be changed
 
@@ -225,10 +261,10 @@
 }
 ```
 
--   ### 4.5. Endpoint: `/book/:id`
+-   ### 5.5. Endpoint: `/book/:id`
 
     -   Method: `DELETE`
-    -   Permissions: `['ADMIN', 'AUTHOR']`
+    -   Permissions: `['ADMIN']`
     -   Description: _Delete an exist book_
     -   Request params: `:id` book's id that needed to be deleted
 
