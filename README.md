@@ -278,3 +278,31 @@
     "metadata": null
 }
 ```
+
+-   ### 5.6. Endpoint: `/book/new`
+
+    -   Method: `GET`
+    -   Permissions: `No permission`
+    -   Description: _List 10 new books by createdAt field_
+
+-   ### Response:
+    > Upon successful, the route returns a success message:
+
+```json
+{
+    "message": "Listing new books successful!",
+    "status": 200,
+    "metadata": [
+        {
+            "title": "Book title 1",
+            "authorId": 1,
+            "publishedDate": "21/03/2023"
+        },
+        {
+            "title": "Book title 2",
+            "authorId": 2,
+            "publishedDate": "21/03/2023"
+        }
+    ]
+}
+```
