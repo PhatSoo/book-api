@@ -6,6 +6,7 @@ const { errorHandler } = require('../../helpers/errorHandler');
 const { permission, authentication } = require('../../auth');
 
 router.get('/author/:authorId', errorHandler(BookController.listBooksByAuthor)); // list all book of a specific author
+router.get('/new', errorHandler(BookController.listNewBooks));
 router.get('/:id', errorHandler(BookController.getBookDetails)); // get book detail
 router.get('', errorHandler(BookController.listAllBooks));
 

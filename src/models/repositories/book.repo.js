@@ -54,6 +54,16 @@ const destroyBook = async (id) => {
     return await Book.destroy({ where: { id } });
 };
 
+const getNewBooks = async () => {
+    const LIMIT = 10;
+
+    return await Book.findAll({
+        limit: LIMIT,
+        order: [['createdAt', 'DESC']],
+        ...options,
+    });
+};
+
 module.exports = {
     find,
     findBookByAuthorId,
@@ -62,4 +72,5 @@ module.exports = {
     createBook,
     updateBook,
     destroyBook,
+    getNewBooks,
 };

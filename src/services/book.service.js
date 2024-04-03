@@ -2,6 +2,7 @@ const {
     BadRequestError,
     NotFoundError,
 } = require('../middlewares/error.response');
+
 const {
     find,
     findBookByAuthorId,
@@ -10,7 +11,11 @@ const {
     createBook,
     updateBook,
     destroyBook,
+    getNewBooks,
 } = require('../models/repositories/book.repo');
+
+const redis = require('../config/config.redis');
+const { redisGetNewBooks } = require('./redis.service');
 
 class BookService {
     static async listAllBooks({ limit = 5, page = 1 }) {
@@ -94,6 +99,10 @@ class BookService {
         if (!removedBook) throw new BadRequestError('Delete book failed');
 
         return null;
+    }
+
+    static async listNewBooks() {
+        return await redisGetNewBooks('new_books');
     }
 }
 

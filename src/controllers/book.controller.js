@@ -13,6 +13,13 @@ class BookController {
         }).send(res);
     };
 
+    listNewBooks = async (req, res, next) => {
+        new OkResponse({
+            message: 'Listing new books successful!',
+            metadata: await BookService.listNewBooks(req.query),
+        }).send(res);
+    };
+
     listBooksByAuthor = async (req, res, next) => {
         new OkResponse({
             message: 'Getting books by author successful!',

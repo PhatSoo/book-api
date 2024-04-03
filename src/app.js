@@ -19,6 +19,7 @@ app.use(
 
 // test connect db
 require('./config/config.mysql');
+require('./config/config.redis');
 
 // route
 app.use('/api/v1', require('./route'));
@@ -35,7 +36,7 @@ app.use((error, req, res, next) => {
     return res.status(statusCode).json({
         status: 'error',
         code: statusCode,
-        // stack: error.stack, // show error details
+        stack: error.stack, // show error details
         message: error.message || 'Internal Server Error',
     });
 });
